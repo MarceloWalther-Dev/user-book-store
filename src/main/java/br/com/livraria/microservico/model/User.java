@@ -29,7 +29,7 @@ public class User implements Serializable {
 	private Integer age;
 	
 	@Column(name = "cpf")
-	private String cpf;
+	private Long cpf;
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
 	@JoinColumn(name = "users_id")
@@ -37,10 +37,11 @@ public class User implements Serializable {
 
 	public User() {}
 	
-	public User(Long id, String name, Integer age, Address address) {
+	public User(Long id, String name, Integer age, Long cpf ,Address address) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
+		this.cpf = cpf;
 		this.address = address;
 	}
 
@@ -72,11 +73,11 @@ public class User implements Serializable {
 		this.address = address;
 	}
 	
-	public void setCpf(String cpf) {
+	public void setCpf(Long cpf) {
 		this.cpf = cpf;
 	}
 	
-	public String getCpf() {
+	public Long getCpf() {
 		return cpf;
 	}
 
