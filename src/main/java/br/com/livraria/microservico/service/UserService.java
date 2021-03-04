@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.com.livraria.microservico.dto.UserEntityDTO;
+import br.com.livraria.microservico.exception.ClientNotFoundException;
 import br.com.livraria.microservico.forms.FormUser;
 import br.com.livraria.microservico.model.UserEntity;
 import br.com.livraria.microservico.repository.UserRepository;
@@ -39,6 +40,12 @@ public class UserService {
 		UserEntityDTO userDTO = new UserEntityDTO(formUser);
 		UserEntity userEntity = new UserEntity(userDTO.getName(),userDTO.getAge(),userDTO.getCpf(),userDTO.getAddress());
 		return userEntity;
+	}
+
+	public void delete(Long id) throws ClientNotFoundException {
+		UserEntity userEntity = repository.findById(id).orElseThrow(
+				() -> new ClientNotFoundException("Client não encontrado. Verifique por favor"));
+		repository.deleteById(userEntity.getId());
 	}
 	
 }
