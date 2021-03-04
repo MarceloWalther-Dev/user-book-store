@@ -32,11 +32,20 @@ public class UserEntity implements Serializable {
 	private Long cpf;
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
-	@JoinColumn(name = "users_id")
+	@JoinColumn(name = "address_id")
 	private Address address;
 
 	public UserEntity() {}
 	
+	
+	public UserEntity(String name, Integer age, Long cpf, Address address) {
+		this.name = name;
+		this.age = age;
+		this.cpf = cpf;
+		this.address = address;
+	}
+
+
 	public UserEntity(Long id, String name, Integer age, Long cpf ,Address address) {
 		this.id = id;
 		this.name = name;
@@ -54,7 +63,7 @@ public class UserEntity implements Serializable {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.toUpperCase();
 	}
 
 	public Integer getAge() {

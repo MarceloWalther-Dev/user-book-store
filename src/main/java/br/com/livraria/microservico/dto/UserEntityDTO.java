@@ -3,6 +3,7 @@ package br.com.livraria.microservico.dto;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.com.livraria.microservico.forms.FormUser;
 import br.com.livraria.microservico.model.Address;
 import br.com.livraria.microservico.model.UserEntity;
 
@@ -11,13 +12,23 @@ public class UserEntityDTO {
 	private Long id;
 	private String name;
 	private Integer age;
+	private Long cpf;
 	private Address address;
 
-	public UserEntityDTO(UserEntity user) {
+	public UserEntityDTO(UserEntity user) { //verificar se necessario
 		this.id = user.getId();
 		this.name = user.getName();
 		this.age = user.getAge();
+		this.cpf = user.getCpf();
 		this.address = user.getAddress();
+	}
+
+	public UserEntityDTO(FormUser formUser) {
+		this.id = formUser.getId();
+		this.name = formUser.getName().toUpperCase();
+		this.age = formUser.getAge();
+		this.cpf = removeMask(formUser.getCpf());
+		this.address = formUser.getAddress();
 	}
 
 	public Long getId() {
@@ -44,6 +55,14 @@ public class UserEntityDTO {
 		this.age = age;
 	}
 
+	public Long getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
+	}
+
 	public Address getAddress() {
 		return address;
 	}
@@ -51,13 +70,23 @@ public class UserEntityDTO {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	
+
 	public static List<UserEntityDTO> convert(List<UserEntity> users) {
-		return users.stream().map(UserEntityDTO ::new).collect(Collectors.toList());
+		return users.stream().map(UserEntityDTO::new).collect(Collectors.toList());
 	}
 
 	public UserEntityDTO convertToDto(UserEntity users) {
 		return new UserEntityDTO(users);
+	}
+
+	public UserEntityDTO convertToDTO(FormUser formUser) {
+		return new UserEntityDTO(formUser);
+	}
+
+	private Long removeMask(String cpf) {
+		String cpfFormat = (cpf.replaceAll("\\D", ""));
+		Long newCpf = Long.parseLong(cpfFormat);
+		return newCpf;
 	}
 
 }
