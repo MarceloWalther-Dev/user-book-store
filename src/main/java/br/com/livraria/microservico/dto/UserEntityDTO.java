@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import br.com.livraria.microservico.forms.FormUser;
 import br.com.livraria.microservico.model.Address;
 import br.com.livraria.microservico.model.UserEntity;
+import br.com.livraria.microservico.model.enums.Active;
 
 public class UserEntityDTO {
 
@@ -13,13 +14,16 @@ public class UserEntityDTO {
 	private String name;
 	private Integer age;
 	private Long cpf;
+	private Active status;
 	private Address address;
+	
 
 	public UserEntityDTO(UserEntity user) { //verificar se necessario
 		this.id = user.getId();
 		this.name = user.getName();
 		this.age = user.getAge();
 		this.cpf = user.getCpf();
+		this.status = user.getStatus();
 		this.address = user.getAddress();
 	}
 
@@ -28,7 +32,18 @@ public class UserEntityDTO {
 		this.name = formUser.getName().toUpperCase();
 		this.age = formUser.getAge();
 		this.cpf = removeMask(formUser.getCpf());
+		this.status = formUser.getStatus();
 		this.address = formUser.getAddress();
+	}
+	
+	
+
+	public Active getStatus() {
+		return status;
+	}
+
+	public void setStatus(Active status) {
+		this.status = status;
 	}
 
 	public Long getId() {

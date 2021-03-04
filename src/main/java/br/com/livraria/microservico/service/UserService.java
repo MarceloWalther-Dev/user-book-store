@@ -9,6 +9,7 @@ import br.com.livraria.microservico.exception.ClientNotFoundException;
 import br.com.livraria.microservico.forms.FormUser;
 import br.com.livraria.microservico.model.Address;
 import br.com.livraria.microservico.model.UserEntity;
+import br.com.livraria.microservico.model.enums.Active;
 import br.com.livraria.microservico.repository.UserRepository;
 
 @Service
@@ -73,9 +74,8 @@ public class UserService {
 		user.setId(formUser.getId());
 		user.setName(formUser.getName());
 		user.setAge(formUser.getAge());
-		Long cpfRemoveMask = UserEntityDTO.removeMask(formUser.getCpf());
-		
-		user.setCpf(cpfRemoveMask);
+		user.setCpf(UserEntityDTO.removeMask(formUser.getCpf()));
+		user.setStatus(formUser.getStatus());
 				
 		user.setAddress(address);
 		
@@ -85,7 +85,7 @@ public class UserService {
 	//criado metodo para converter um formulario para entity
 	private UserEntity convertFormUserForUserEntity(FormUser formUser) {
 		UserEntityDTO userDTO = new UserEntityDTO(formUser);
-		UserEntity userEntity = new UserEntity(userDTO.getName(),userDTO.getAge(),userDTO.getCpf(),userDTO.getAddress());
+		UserEntity userEntity = new UserEntity(userDTO.getName(),userDTO.getAge(),userDTO.getCpf(),Active.PENDING,userDTO.getAddress());
 		return userEntity;
 	}
 

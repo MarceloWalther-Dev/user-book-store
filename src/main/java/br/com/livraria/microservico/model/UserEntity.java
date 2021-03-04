@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
+
+import br.com.livraria.microservico.model.enums.Active;
 
 @Entity
 @Table(name = "user")
@@ -23,27 +27,31 @@ public class UserEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotNull
 	@Column(name = "name")
 	private String name;
-	
+
 	@NotNull
 	@Column(name = "age", length = 3)
 	private Integer age;
-	
+
 	@NotNull
 	@Column(name = "cpf", unique = true)
 	private Long cpf;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Active status;
 
 	@NotNull
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE })
 	@JoinColumn(name = "address_id")
 	private Address address;
 
-	public UserEntity() {}
-	
-	
+	public UserEntity() {
+	}
+
 	public UserEntity(String name, Integer age, Long cpf, Address address) {
 		this.name = name;
 		this.age = age;
@@ -51,8 +59,7 @@ public class UserEntity implements Serializable {
 		this.address = address;
 	}
 
-
-	public UserEntity(Long id, String name, Integer age, Long cpf ,Address address) {
+	public UserEntity(Long id, String name, Integer age, Long cpf, Address address) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
@@ -60,10 +67,26 @@ public class UserEntity implements Serializable {
 		this.address = address;
 	}
 
+	public UserEntity(String name, Integer age, Long cpf, Active status, Address address) {
+		this.name = name;
+		this.age = age;
+		this.cpf = cpf;
+		this.status = status;
+		this.address = address;
+	}
+
+	public Active getStatus() {
+		return status;
+	}
+
+	public void setStatus(Active status) {
+		this.status = status;
+	}
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -91,11 +114,11 @@ public class UserEntity implements Serializable {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	
+
 	public void setCpf(Long cpf) {
 		this.cpf = cpf;
 	}
-	
+
 	public Long getCpf() {
 		return cpf;
 	}
