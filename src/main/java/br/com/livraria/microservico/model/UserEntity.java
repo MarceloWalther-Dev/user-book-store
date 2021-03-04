@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User implements Serializable {
+public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,9 +35,9 @@ public class User implements Serializable {
 	@JoinColumn(name = "users_id")
 	private Address address;
 
-	public User() {}
+	public UserEntity() {}
 	
-	public User(Long id, String name, Integer age, Long cpf ,Address address) {
+	public UserEntity(Long id, String name, Integer age, Long cpf ,Address address) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
@@ -97,7 +97,7 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		UserEntity other = (UserEntity) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
