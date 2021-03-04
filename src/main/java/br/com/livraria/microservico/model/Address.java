@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 @Entity
 @Table(name = "address")
 public class Address {
@@ -14,17 +16,19 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull
 	@Column(name = "street")
 	private String street;
 
+	@NotNull
 	@Column(name = "district")
 	private String district;
 
+	@NotNull
 	@Column(name = "number")
 	private Integer number;
 
-	public Address() {
-	}
+	public Address() {}
 
 	public Address(String street, String district, Integer number) {
 		this.street = street;

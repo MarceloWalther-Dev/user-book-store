@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 @Entity
 @Table(name = "user")
 public class UserEntity implements Serializable {
@@ -22,15 +24,19 @@ public class UserEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "age")
+	@NotNull
+	@Column(name = "age", length = 3)
 	private Integer age;
 	
-	@Column(name = "cpf")
+	@NotNull
+	@Column(name = "cpf", unique = true)
 	private Long cpf;
 
+	@NotNull
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
 	@JoinColumn(name = "address_id")
 	private Address address;
