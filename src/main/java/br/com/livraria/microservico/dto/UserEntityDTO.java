@@ -75,15 +75,15 @@ public class UserEntityDTO {
 		return users.stream().map(UserEntityDTO::new).collect(Collectors.toList());
 	}
 
-	public UserEntityDTO convertToDto(UserEntity users) {
+	public static UserEntityDTO convertToDto(UserEntity users) {
 		return new UserEntityDTO(users);
 	}
 
-	public UserEntityDTO convertToDTO(FormUser formUser) {
+	public UserEntityDTO convertToDTOForm(FormUser formUser) {
 		return new UserEntityDTO(formUser);
 	}
 
-	private Long removeMask(String cpf) {
+	public static Long removeMask(String cpf) {
 		String cpfFormat = (cpf.replaceAll("\\D", ""));
 		Long newCpf = Long.parseLong(cpfFormat);
 		return newCpf;
