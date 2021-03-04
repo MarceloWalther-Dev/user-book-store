@@ -65,6 +65,7 @@ public class UserService {
 	//metodo criado para atualizar o user e o endereco
 	private void putUserAndAddress(FormUser formUser, UserEntity user) {
 		Address address = new Address();
+		address.setId(user.getAddress().getId());
 		address.setStreet(formUser.getAddress().getStreet());
 		address.setDistrict(formUser.getAddress().getDistrict());
 		address.setNumber(formUser.getAddress().getNumber());
@@ -72,7 +73,9 @@ public class UserService {
 		user.setId(formUser.getId());
 		user.setName(formUser.getName());
 		user.setAge(formUser.getAge());
-		user.setCpf(UserEntityDTO.removeMask(formUser.getCpf()));
+		Long cpfRemoveMask = UserEntityDTO.removeMask(formUser.getCpf());
+		
+		user.setCpf(cpfRemoveMask);
 				
 		user.setAddress(address);
 		
