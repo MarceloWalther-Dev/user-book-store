@@ -42,9 +42,9 @@ public class UserController {
 	}
 	
 	//buscar por bairro
-	@GetMapping("/district/{address}")
-	public ResponseEntity<UserEntityDTO> findByUserAddressDistrict(@PathVariable String address) throws ClientNotFoundException{
-		UserEntityDTO userDTO = userService.findByAddressDistrict(address);
+	@GetMapping("/admin/{id}")
+	public ResponseEntity<UserEntityDTO> findByUserForId(@PathVariable Long id) throws ClientNotFoundException{
+		UserEntityDTO userDTO = userService.findById(id);
 		return ResponseEntity.ok().body(userDTO);
 	}
 	

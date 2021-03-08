@@ -1,7 +1,5 @@
 package br.com.livraria.microservico.repository;
 
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,10 +28,12 @@ public class UserRepositoryTest {
 	}
 	
 	@Test
-	public void deveriaCarregarUmUsuarioAoBuscarPeloEnderecoBairro() {
-		String bairro = "Rio Vermelho";
+	public void deveriaCarregarUmUsuarioAoBuscarPeloID() {
+		Long id = 5L;
 		Integer numeroCasa = 43;
-		UserEntity user = userRepository.findByAddress_District(bairro).get();
+		
+		UserEntity user = userRepository.findById(id).get();
+		
 		
 		Assert.assertNotNull(user);
 		Assert.assertEquals(numeroCasa, user.getAddress().getNumber());

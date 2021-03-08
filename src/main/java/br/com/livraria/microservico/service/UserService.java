@@ -31,13 +31,13 @@ public class UserService {
 	public UserEntityDTO findByCpf(String cpf) throws ClientNotFoundException {
 		Long cpfFormat = Long.parseLong(cpf);
 		return UserEntityDTO.convertToDto(repository.findByCpf(cpfFormat).orElseThrow(
-				()-> new ClientNotFoundException("Client não encontrado. Verifique por favor")));
+				()-> new ClientNotFoundException("Cliente não encontrado. Verifique por favor")));
 	}
 	
 	//getUserAddress
-	public UserEntityDTO findByAddressDistrict(String address) throws ClientNotFoundException {		
-		return UserEntityDTO.convertToDto(repository.findByAddress_District(address).orElseThrow(
-				()-> new ClientNotFoundException("Client não encontrado. Verifique por favor")));
+	public UserEntityDTO findById(Long id) throws ClientNotFoundException{		
+		return UserEntityDTO.convertToDto(repository.findById(id).orElseThrow(
+				()-> new ClientNotFoundException("Cliente não encontrado. Verifique por favor")));
 	}
 	
 	//post
