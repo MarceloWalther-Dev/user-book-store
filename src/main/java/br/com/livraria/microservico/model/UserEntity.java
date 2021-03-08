@@ -74,6 +74,15 @@ public class UserEntity implements Serializable {
 		this.status = status;
 		this.address = address;
 	}
+	
+	public UserEntity(Long id, String name, Integer age, Long cpf, Active status, Address address) {
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.cpf = cpf;
+		this.status = status;
+		this.address = address;
+	}
 
 	public Active getStatus() {
 		return status;
