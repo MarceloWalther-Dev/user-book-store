@@ -15,6 +15,25 @@ public class FormUser {
 
 	public FormUser() {}
 
+	public FormUser(String name, int age, String cpf, Active active, Address address) {
+		this.name = name;
+		this.age = age;
+		this.cpf = cpf;
+		this.status = active;
+		this.address = address;
+	}
+	
+	
+
+	public FormUser(Long id, String name, Integer age, String cpf, Active status, Address address) {
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.cpf = cpf;
+		this.status = status;
+		this.address = address;
+	}
+
 	public Active getStatus() {
 		return status;
 	}

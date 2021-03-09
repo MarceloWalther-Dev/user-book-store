@@ -1,9 +1,13 @@
 package br.com.livraria.microservico.dto;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.com.livraria.microservico.forms.FormUser;
 import br.com.livraria.microservico.model.Address;
 import br.com.livraria.microservico.model.UserEntity;
 import br.com.livraria.microservico.model.enums.Active;
@@ -14,9 +18,11 @@ public class UserEntityDTOTest {
 	UserEntityDTO userDto2 = new UserEntityDTO(new UserEntity(4L,"Marcelo2", 34, 121314151617L, Active.NOT_ACTIVE, new Address(2L,"domingos2", "ingleses2", 432)));
 	UserEntityDTO userDto3 = new UserEntityDTO(new UserEntity(3L,"Marcelo3", 35, 121314151633L, Active.PENDING, new Address(3L,"domingos3", "ingleses3", 433)));
 	
+	UserEntity user = new UserEntity(1L,"Marcelo", 33, 1234567891011L, Active.ACTIVE, new Address("domingos", "ingleses", 43));
+	UserEntity user2 = new UserEntity(2L,"Usuario2",43,1110987654321L, Active.NOT_ACTIVE, new Address("RuaVazia","BairroVazio", 58));
 	
-	
-	
+	List<UserEntity> listUser = new ArrayList<UserEntity>();
+	List<UserEntityDTO> listDto = new ArrayList<UserEntityDTO>();
 
 	@Test
 	public void testGetStatus() {
@@ -180,19 +186,45 @@ public class UserEntityDTOTest {
 	
 	@Test
 	public void testConvert() {
+		listUser.add(user);
+		
+		List<UserEntityDTO> list = UserEntityDTO.convert(listUser);
+		
+		//é necessario testar essa parte? o metodo converte uma lista de Entity para Lista de entityDto
+		list.stream().forEach(i ->{
+			Assert.assertTrue(i.getName().equalsIgnoreCase("Marcelo"));
+			Assert.assertTrue(i.getAddress().getStreet().equalsIgnoreCase("domingos"));
+		});
 		
 	}
 
 	@Test
 	public void testConvertToDto() {
+		UserEntityDTO userDto = new UserEntityDTO(
+				new UserEntity(1L,"Marcelo", 33, 1234567891011L, Active.ACTIVE, 
+						new Address(1L,"domingos", "ingleses", 43)));
+		
+		Assert.assertTrue(userDto.getName().equalsIgnoreCase("mArCeLo"));
 	}
 
 	@Test
 	public void testConvertToDTOForm() {
+		Address end = new Address("domingos", "ingleses", 43);
+		FormUser formUser = new FormUser("NameForm", 55, "11111", Active.ACTIVE, end);
+		UserEntityDTO entityDTO = userDto.convertToDTOForm(formUser);
+		
+		//é necessario testar essa parte?
+		Assert.assertTrue(entityDTO.getName().equalsIgnoreCase("nameForm"));
+		
 	}
 
 	@Test
 	public void testRemoveMask() {
+		String cpf = "111.222.333-44";
+		Long removeMask = UserEntityDTO.removeMask(cpf);
+		
+		userDto.setCpf(removeMask);
+		Assert.assertEquals(userDto.getCpf(), Long.valueOf(11122233344L));
 	}
 
 }
