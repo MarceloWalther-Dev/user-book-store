@@ -113,8 +113,6 @@ public class FormUserTest {
 	
 	
 	
-	
-
 	@Test
 	public void testGetCpf() {
 		Assert.assertEquals(userForm.getCpf(), "1111333344");
