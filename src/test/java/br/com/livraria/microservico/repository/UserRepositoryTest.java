@@ -1,6 +1,5 @@
 package br.com.livraria.microservico.repository;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -30,14 +29,14 @@ public class UserRepositoryTest {
 		
 		UserEntity user = userEntity;
 		Assert.assertNotNull(user);
-		Assert.assertEquals(user.getId(), Long.valueOf(1L));
-		Assert.assertTrue(user.getName().equalsIgnoreCase("Marcelo"));
-		Assert.assertEquals(user.getAge(), Integer.valueOf(33));
-		Assert.assertEquals(user.getCpf(), Long.valueOf(11111111111L));
-		Assert.assertEquals(user.getAddress().getId(), Long.valueOf(1L));
-		Assert.assertTrue(user.getAddress().getStreet().equalsIgnoreCase("testMock"));
-		Assert.assertTrue(user.getAddress().getDistrict().equalsIgnoreCase("districtMock"));
-		Assert.assertEquals(user.getAddress().getNumber(), Integer.valueOf(43));
+		Assert.assertEquals(user.getId(), userEntity.getId());
+		Assert.assertTrue(user.getName().equalsIgnoreCase(userEntity.getName()));
+		Assert.assertEquals(user.getAge(), userEntity.getAge());
+		Assert.assertEquals(user.getCpf(), userEntity.getCpf());
+		Assert.assertEquals(user.getAddress().getId(), userEntity.getAddress().getId());
+		Assert.assertTrue(user.getAddress().getStreet().equalsIgnoreCase(userEntity.getAddress().getStreet()));
+		Assert.assertTrue(user.getAddress().getDistrict().equalsIgnoreCase(userEntity.getAddress().getDistrict()));
+		Assert.assertEquals(user.getAddress().getNumber(), userEntity.getAddress().getNumber());
 	}
 	
 	@Test
@@ -56,14 +55,14 @@ public class UserRepositoryTest {
 		
 		when(mockRepository.findByCpf(userEntity.getCpf())).thenReturn(Optional.of(userEntity));
 		Assert.assertNotNull(userEntity);
-		Assert.assertEquals(user.getId(), Long.valueOf(1L));
-		Assert.assertTrue(user.getName().equalsIgnoreCase("Marcelo"));
-		Assert.assertEquals(user.getAge(), Integer.valueOf(33));
-		Assert.assertEquals(user.getCpf(), Long.valueOf(11111111111L));
-		Assert.assertEquals(user.getAddress().getId(), Long.valueOf(1L));
-		Assert.assertTrue(user.getAddress().getStreet().equalsIgnoreCase("testMock"));
-		Assert.assertTrue(user.getAddress().getDistrict().equalsIgnoreCase("districtMock"));
-		Assert.assertEquals(user.getAddress().getNumber(), Integer.valueOf(43));
+		Assert.assertEquals(user.getId(), userEntity.getId());
+		Assert.assertTrue(user.getName().equalsIgnoreCase(userEntity.getName()));
+		Assert.assertEquals(user.getAge(), userEntity.getAge());
+		Assert.assertEquals(user.getCpf(), userEntity.getCpf());
+		Assert.assertEquals(user.getAddress().getId(), userEntity.getAddress().getId());
+		Assert.assertTrue(user.getAddress().getStreet().equalsIgnoreCase(userEntity.getAddress().getStreet()));
+		Assert.assertTrue(user.getAddress().getDistrict().equalsIgnoreCase(userEntity.getAddress().getDistrict()));
+		Assert.assertEquals(user.getAddress().getNumber(), userEntity.getAddress().getNumber());
 		
 	}
 	
