@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.livraria.microservico.model.Address;
 import br.com.livraria.microservico.model.UserEntity;
+import javassist.NotFoundException;
 
 @RunWith(SpringRunner.class)
 public class UserRepositoryTest {
@@ -31,17 +32,27 @@ public class UserRepositoryTest {
 		Assert.assertTrue(user.getName().equalsIgnoreCase("Marcelo"));
 	}
 	
+	@Test
+	public void naoDeveriaRetornarNenhumUsuarioSeOIdPassadoNaoExistirNoBanco() {
+		try {
+			when(mockRepository.findById(20L)).thenThrow(NotFoundException.class);
+			
+		} catch (Exception e) {}
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private UserEntity createdUserEntity() {
 		UserEntity entity = new UserEntity(1L,"Marcelo",33,11111111111L,
 				new Address(1L,"testMock","districtMock", 43));
 		return entity;
 
 	}
-	
-	
-	
-	
-	
-	
 }
