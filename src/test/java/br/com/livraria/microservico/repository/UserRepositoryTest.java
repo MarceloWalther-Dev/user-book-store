@@ -24,19 +24,11 @@ public class UserRepositoryTest {
 	@Test
 	public void retornaUmUserEntityPesquisadoPorId() {
 		UserEntity userEntity = createdUserEntity();
+		UserEntity user = userEntity;
 		
 		when(mockRepository.findById(1L)).thenReturn(Optional.of(userEntity));
 		
-		UserEntity user = userEntity;
-		Assert.assertNotNull(user);
-		Assert.assertEquals(user.getId(), userEntity.getId());
-		Assert.assertTrue(user.getName().equalsIgnoreCase(userEntity.getName()));
-		Assert.assertEquals(user.getAge(), userEntity.getAge());
-		Assert.assertEquals(user.getCpf(), userEntity.getCpf());
-		Assert.assertEquals(user.getAddress().getId(), userEntity.getAddress().getId());
-		Assert.assertTrue(user.getAddress().getStreet().equalsIgnoreCase(userEntity.getAddress().getStreet()));
-		Assert.assertTrue(user.getAddress().getDistrict().equalsIgnoreCase(userEntity.getAddress().getDistrict()));
-		Assert.assertEquals(user.getAddress().getNumber(), userEntity.getAddress().getNumber());
+		assertUser(userEntity, user);
 	}
 	
 	@Test
@@ -48,26 +40,13 @@ public class UserRepositoryTest {
 
 	@Test
 	public void retornaOptionalDeUserEntityBuscadoPeloCpf() {
-		
 		UserEntity userEntity = createdUserEntity();
-		
 		UserEntity user = userEntity;
 		
 		when(mockRepository.findByCpf(userEntity.getCpf())).thenReturn(Optional.of(userEntity));
-		Assert.assertNotNull(userEntity);
-		Assert.assertEquals(user.getId(), userEntity.getId());
-		Assert.assertTrue(user.getName().equalsIgnoreCase(userEntity.getName()));
-		Assert.assertEquals(user.getAge(), userEntity.getAge());
-		Assert.assertEquals(user.getCpf(), userEntity.getCpf());
-		Assert.assertEquals(user.getAddress().getId(), userEntity.getAddress().getId());
-		Assert.assertTrue(user.getAddress().getStreet().equalsIgnoreCase(userEntity.getAddress().getStreet()));
-		Assert.assertTrue(user.getAddress().getDistrict().equalsIgnoreCase(userEntity.getAddress().getDistrict()));
-		Assert.assertEquals(user.getAddress().getNumber(), userEntity.getAddress().getNumber());
-		
+		assertUser(userEntity, user);
 	}
-	
-	
-	
+
 	@Test
 	public void naoDeveriaRetornarNenhumUsuarioSeOCpfPassadoNaoExistirNoBanco() {
 		try {
@@ -78,11 +57,25 @@ public class UserRepositoryTest {
 	
 	
 	
-	
 	private UserEntity createdUserEntity() {
 		UserEntity entity = new UserEntity(1L,"Marcelo",33,11111111111L,
 				new Address(1L,"testMock","districtMock", 43));
 		return entity;
 
 	}
+		
+	private void assertUser(UserEntity userEntity, UserEntity user) {
+		Assert.assertNotNull(userEntity);
+		Assert.assertEquals(user.getId(), userEntity.getId());
+		Assert.assertTrue(user.getName().equalsIgnoreCase(userEntity.getName()));
+		Assert.assertEquals(user.getAge(), userEntity.getAge());
+		Assert.assertEquals(user.getCpf(), userEntity.getCpf());
+		Assert.assertEquals(user.getAddress().getId(), userEntity.getAddress().getId());
+		Assert.assertTrue(user.getAddress().getStreet().equalsIgnoreCase(userEntity.getAddress().getStreet()));
+		Assert.assertTrue(user.getAddress().getDistrict().equalsIgnoreCase(userEntity.getAddress().getDistrict()));
+		Assert.assertEquals(user.getAddress().getNumber(), userEntity.getAddress().getNumber());
+	}
+	
+	
+	
 }
